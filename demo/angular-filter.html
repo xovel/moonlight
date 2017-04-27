@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html ng-app="angularFilterApp">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="xovel">
+    <meta name="format-detection" content="telephone=no">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <title>angular过滤器测试</title>
+
+    <script src="../vendor/angular1.6.4.js"></script>
+  </head>
+  <body>
+
+<div ng-controller="testCtrl">
+  <div class="test">{{ case | uppercase }}</div>
+  <div class="test">{{ case | lowercase }}</div>
+  <div class="test">{{ currency | currency }}</div>
+  <div class="test">{{ currency | currency: '￥' }}</div>
+  <div class="test">{{ currency | currency: '￥': 3 }}</div>
+  <div class="test">{{ number | number }}</div>
+  <div class="test">{{ number | number:2 }}</div>
+  <div class="test">{{ json | json }}</div>
+  <div class="test">{{ date | date }}</div>
+  <div class="test">{{ date | date: 'yyyy-MM-dd' }}</div>
+  <div class="test">{{ date | date: 'yyyy-MM-dd hh:mm:ss EEE' }}</div>
+  <div class="test">{{ limit | limitTo }}</div>
+  <div class="test">{{ limitArray | limitTo:3 }}</div>
+  <div class="test">{{ filter | filter: 'r' }}</div>
+  <div class="test">{{ filter | filter }}</div>
+  
+  <div class="test">{{ childrenArray | filter : 'a' }}</div>
+  <div class="test">{{ childrenArray | filter : 4 }}</div>
+  <div class="test">{{ childrenArray | filter : {name : 'i'} }}</div>
+
+  <div class="test">{{ filter | orderBy: '1'}}</div>
+
+  <div class="test">{{ case | reverse }}</div>
+</div>
+
+<script type="text/javascript">
+var app = angular.module("angularFilterApp", []);
+app.filter('reverse', function () {
+  return function (str) {
+    return str.split('').reverse().join('');
+  }
+});
+app.controller("testCtrl",["$scope", function ($scope) {
+  $scope.case = 'CaseTest';
+  $scope.currency = 59448;
+  $scope.number = 1213214243.991;
+  $scope.json = {a:123,b:456};
+  $scope.date = new Date();
+  $scope.limit = 'qwertyui';
+  $scope.limitArray = [1,2,3,4,5];
+  $scope.filter = ['ereenr','qqqqq','eeeee'];
+
+  $scope.childrenArray = [
+        {name:'kimi',age:3},
+        {name:'cindy',age:4},
+        {name:'anglar',age:4},
+        {name:'shitou',age:6},
+        {name:'tiantian',age:5}
+    ];
+}]);
+</script>
+
+  </body>
+</html>
